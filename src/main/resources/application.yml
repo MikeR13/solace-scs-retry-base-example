@@ -1,15 +1,20 @@
 spring:
   cloud:
     function:
-      definition: dummy
+      definition: dummy;dummy2
     stream:
       default:
         group: my-group
         consumer:
           defaultRetryable: false
+          retryableExceptions:
+            ch.mrt.exception.DummyException: true
       bindings:
         dummy-in-0:
           destination: dummy
+          binder: solace1
+        dummy2-in-0:
+          destination: dummy2
           binder: solace1
       solace:
         default:

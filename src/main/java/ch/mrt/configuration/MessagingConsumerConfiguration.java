@@ -1,5 +1,6 @@
 package ch.mrt.configuration;
 
+import ch.mrt.exception.DummyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,14 @@ public class MessagingConsumerConfiguration {
         return message -> {
             LOG.info("Got message: {} with headers {}", message.getPayload(), message.getHeaders());
             throw new ValidationException("What ever");
+        };
+    }
+
+    @Bean
+    public Consumer<Message<String>> dummy2() {
+        return message -> {
+            LOG.info("Got message: {} with headers {}", message.getPayload(), message.getHeaders());
+            throw new DummyException();
         };
     }
 
