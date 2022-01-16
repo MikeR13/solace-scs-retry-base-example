@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    function:
+      definition: dummy
+    stream:
+      default:
+        group: my-group
+        consumer:
+          defaultRetryable: false
+      bindings:
+        dummy-in-0:
+          destination: dummy
+          binder: solace1
+      solace:
+        default:
+          consumer:
+            autoBindErrorQueue: true
+            provisionErrorQueue: true
+            useFamiliarityInQueueName: false
+            useDestinationEncodingInQueueName: false
+            useGroupNameInQueueName: true
+      binders:
+        solace1:
+          type: solace
+          environment:
+            solace:
+              java:
+                host: ${SOLACE_HOST}
+                msgVpn: ${MSG_VPN}
+                clientUsername: ${CLIENT_USERNAME}
+                clientPassword: ${CLIENT_PASSWORD}
+                clientName: @project.artifactId@_mike
+                connectRetries: 5
+                reconnectRetries: 2
+
+
+logging:
+  level:
+    root: INFO
+
